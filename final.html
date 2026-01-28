@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise </title>
+
+<style>
+/* ------------------ BASIC ------------------ */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #ffc0d9;
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ------------------ HEART ANIMATION ------------------ */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: floatUp linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* ------------------ POPUP ------------------ */
+.popup-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup {
+    background: white;
+    padding: 30px;
+    width: 300px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.popup h2 {
+    margin-bottom: 10px;
+}
+
+.popup input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.popup button {
+    margin-top: 15px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background: hotpink;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ------------------ QUIZ ------------------ */
+.quiz {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.quiz h2 {
+    text-align: center;
+}
+
+.quiz p {
+    margin-top: 15px;
+}
+
+.quiz input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.question {
+    text-align: center;
+}
+
+.question p {
+    text-align: center;
+}
+
+.question button {
+    margin-top: 15px;
+}
+
+.question label {
+    display: block;
+    margin: 8px 0;
+    font-size: 1.05rem;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    margin: 12px 0;
+    width: 100%;
+}
+
+.option input {
+    margin: 0;
+    transform: scale(1.2);
+    flex-shrink: 0;
+}
+
+.option span {
+    text-align: center;
+}
+
+/* ------------------ GIFTS ------------------ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    padding: 30px;
+}
+
+@media(max-width:800px){
+    .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.card button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background: hotpink;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+/* -------- GIFT FLASH CARDS -------- */
+
+/* ---------- GIFT CARDS ---------- */
+
+.gift-title {
+    text-align: center;
+    color: white;
+    font-size: 2.2rem;
+    margin-top: 30px;
+}
+
+.gift-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 40px;
+}
+
+@media (max-width: 900px) {
+    .gift-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.gift-card {
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+    transition: 0.35s;
+}
+
+.gift-card:hover {
+    transform: translateY(-12px);
+}
+
+.gift-card img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+}
+
+.gift-card h3 {
+    margin: 15px 0 5px;
+    font-size: 1.4rem;
+}
+
+.gift-card p {
+    color: #666;
+    padding: 0 15px;
+}
+
+.gift-card button {
+    margin: 20px;
+    padding: 12px 35px;
+    border-radius: 30px;
+    border: none;
+    background: hotpink;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.gift-card button:hover {
+    background: #ff4fa3;
+}
+
+/* -------- IMAGE POPUP -------- */
+
+.img-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.img-popup img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 20px;
+    animation: zoomIn 0.4s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginBox" class="popup-bg">
+    <div class="popup">
+        <h2>🔒 Locked</h2>
+        <input id="user" placeholder="Login ID">
+        <input id="pass" type="password" placeholder="Password">
+        <button onclick="login()">Unlock</button>
+    </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quizBox" class="popup-bg hidden">
+  <div class="quiz">
+
+    <h2>💖 Unlock Quiz</h2>
+
+    <!-- QUESTION 1 -->
+    <div class="question active" id="q1">
+    <p>1️⃣ When did we meet?</p>
+
+    <label class="option">
+        <input type="radio" name="q1" value="4th March">
+        <span>4th March</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="q1" value="28 February">
+        <span>28 February</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="q1" value="2nd December">
+        <span>2nd December</span>
+    </label>
+
+    <button onclick="nextQ(1)">Next</button>
+</div>
+
+    <!-- QUESTION 2 -->
+    <div class="question hidden" id="q2">
+    <p>2️⃣ Whars my favourite food?</p>
+
+    <label class="option">
+        <input type="radio" name="q2" value="White Sauce pasta">
+        <span>White sauce pasta</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="q2" value="Peri peri fries">
+        <span>Peri peri fries</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="q2" value="Ghughra">
+        <span>Ghughra</span>
+    </label>
+
+    <button onclick="nextQ(2)">Next</button>
+    </div>
+
+    <!-- QUESTION 3 -->
+    <div class="question hidden" id="q3">
+      <p>3️⃣ Whats my favourite thing to do?</p>
+
+    <label class="option">
+        <input type="checkbox" name="q3" value="Read books">
+        <span>Read books</span>
+    </label>
+
+    <label class="option">
+        <input type="checkbox" name="q3" value="Watch movies">
+        <span>Watch movies</span>
+    </label>
+
+    <label class="option">
+        <input type="checkbox" name="q3" value="Being called my nickname">
+        <span>Being called my nickname</span>
+    </label>
+
+      <button onclick="finishQuiz()">Submit</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- GIFTS SECTION -->
+<div id="gifts" class="hidden">
+
+    <h1 class="gift-title">🎁 Your Gifts</h1>
+
+    <div class="gift-grid">
+
+        <!-- MEMORIES CARD -->
+        <div class="gift-card">
+            <img src="image1.jpg">
+            <h3>💖 Memories</h3>
+            <p>Some of the best parts</p>
+            <button onclick="window.location.href='memories.html'">Open</button>
+        </div>
+
+        <!-- LETTERS CARD -->
+        <div class="gift-card">
+            <img src="letter.jpg">
+            <h3>✉️ Letters</h3>
+            <p>Outspoken but unspoken</p>
+            <button onclick="window.location.href='letter.html'">Open</button>
+        </div>
+
+        <!-- FLOWERS CARD -->
+        <div class="gift-card">
+            <img src="flowers.jpg">
+            <h3>🌸 Flowers</h3>
+            <p>Just for you</p>
+            <button onclick="window.location.href='flowers.html'">Open</button>
+        </div>
+
+    </div>
+    <button onclick="history.back()">⬅ Go Back</button>
+
+</div>
+
+<div id="panelOverlay" class="overlay hidden">
+
+    <div class="panel">
+
+        <span class="close" onclick="closePanel()">✖</span>
+
+        <!-- MEMORIES -->
+        <div id="memories" class="panel-content hidden">
+            <h2>💖 Memories</h2>
+            <div class="collage">
+                <img src="image1.jpg">
+                <img src="letter.jpg">
+                <img src="flowers.jpg">
+            </div>
+        </div>
+
+        <!-- FLOWERS -->
+        <div id="flowers" class="panel-content hidden">
+            <h2>🌸 Flowers</h2>
+            <div class="flowers">
+                🌸 🌹 🌷 💐 🌺 🌻
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    window.onload = () => {
+    document.getElementById("loginBox").classList.remove("hidden");
+    document.getElementById("quizBox").classList.add("hidden");
+    document.getElementById("gifts").classList.add("hidden");
+};
+
+/* ------------------ LOGIN ------------------ */
+const LOGIN_ID = "krish";
+const PASSWORD = "frenubaby";
+
+function login() {
+    const u = document.getElementById("user").value;
+    const p = document.getElementById("pass").value;
+
+    if (u === LOGIN_ID && p === PASSWORD) {
+        document.getElementById("loginBox").classList.add("hidden");
+        startHearts();
+    } else {
+        alert("Wrong login details ❤️");
+    }
+}
+
+/* ------------------ HEARTS ------------------ */
+function startHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 8000);
+    }, 300);
+
+    setTimeout(() => {
+        document.getElementById("quizBox").classList.remove("hidden");
+    }, 1000);
+}
+
+/* ------------------ QUIZ CHECK ------------------ */
+let answers = {
+    q1: "4th March",
+    q2: "Peri peri fries",
+    q3: ["Read books", "Watch movies", "Being called my nickname"]
+};
+
+function nextQ(num) {
+    const current = document.getElementById("q" + num);
+    const selected = document.querySelector(`input[name="q${num}"]:checked`);
+
+    if (!selected) {
+        alert("Please select an answer ❤️");
+        return;
+    }
+
+    if (selected.value !== answers["q" + num]) {
+        alert("Wrong answer 💔");
+        return;
+    }
+
+    current.classList.add("hidden");
+    document.getElementById("q" + (num + 1)).classList.remove("hidden");
+}
+
+function finishQuiz() {
+    const checks = document.querySelectorAll("#q3 input[type=checkbox]:checked");
+    const values = [...checks].map(c => c.value);
+
+    const correct = answers.q3.every(v => values.includes(v)) &&
+                    values.length === answers.q3.length;
+
+    if (!correct) {
+        alert("Wrong selection 💔");
+        return;
+    }
+
+    document.getElementById("quizBox").classList.add("hidden");
+    document.getElementById("gifts").classList.remove("hidden");
+}
+
+function openImage(src) {
+    document.getElementById("popupImg").src = src;
+    document.getElementById("imgPopup").classList.remove("hidden");
+}
+
+function closeImage() {
+    document.getElementById("imgPopup").classList.add("hidden");
+}
+
+function openPanel(id) {
+    document.getElementById("panelOverlay").classList.remove("hidden");
+
+    document.querySelectorAll(".panel-content").forEach(p => {
+        p.classList.add("hidden");
+    });
+
+    document.getElementById(id).classList.remove("hidden");
+}
+
+function closePanel() {
+    document.getElementById("panelOverlay").classList.add("hidden");
+}
+
+</script>
+
+<!-- IMAGE POPUP -->
+<div id="imgPopup" class="img-popup hidden" onclick="closeImage()">
+    <img id="popupImg">
+</div>
+
+</body>
+</html>
